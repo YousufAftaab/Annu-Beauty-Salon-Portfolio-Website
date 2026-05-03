@@ -31,7 +31,12 @@ export function InstagramGrid() {
   return (
     <section className="py-24 bg-white">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col items-center mb-12">
+        <a 
+          href="https://instagram.com/salon_annu" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex flex-col items-center mb-12 hover:opacity-80 transition-opacity"
+        >
           <Instagram size={32} className="text-[#C9A961] mb-4" />
           <h2 className="text-3xl font-serif text-[#1a1a1a]">
             @annubeautysalon
@@ -39,7 +44,7 @@ export function InstagramGrid() {
           <p className="text-gray-500 mt-2">
             Follow for daily inspiration and behind the scenes
           </p>
-        </div>
+        </a>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
           {igPosts.map((post, idx) => (
