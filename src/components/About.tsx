@@ -68,7 +68,7 @@ export function About() {
 
             <div className="grid grid-cols-2 gap-6 mt-8">
               <div className="bg-[#EFE6DA]/50 p-6 rounded-2xl">
-                <h3 className="text-3xl font-serif text-[#C9A961] mb-2">20+</h3>
+                <h3 className="text-3xl font-serif text-[#C9A961] mb-2">23+</h3>
                 <p className="text-sm font-medium text-gray-800 uppercase tracking-wider">
                   Years Experience
                 </p>

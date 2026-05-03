@@ -7,7 +7,7 @@ export function Footer() {
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-serif mb-2">Annu Beauty Salon</h3>
             <p className="text-gray-400 text-sm">
-              20+ years of elevating your natural beauty.
+              23+ years of elevating your natural beauty.
             </p>
           </div>
 
