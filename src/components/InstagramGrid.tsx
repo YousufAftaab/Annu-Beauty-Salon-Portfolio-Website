@@ -26,6 +26,10 @@ const igPosts = [
     type: 'video',
     url: '/videos/Video-711.mp4',
   },
+  {
+    type: 'video',
+    url: '/videos/mallu-4.mp4',
+  },
 ];
 
 export function InstagramGrid() {
