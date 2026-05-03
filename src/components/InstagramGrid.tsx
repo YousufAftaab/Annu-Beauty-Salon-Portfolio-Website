@@ -3,10 +3,6 @@ import { Instagram } from 'lucide-react';
 const igPosts = [
   {
     type: 'video',
-    url: '/videos/mallu-1.mp4',
-  },
-  {
-    type: 'video',
     url: '/videos/mallu-2.mp4',
   },
   {
