@@ -124,8 +124,23 @@ const overlayRevealVariants = {
 export function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('Bridal Makeup');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(6); // Default to desktop (5 + 1)
 
+  // Determine initial count based on screen size (simulated via visibleCount)
+  // We will slice the array to (visibleCount - 1) and add the "Load More" card
   const filteredItems = portfolioItems.filter((item) => item.category === activeCategory);
+  
+  // Use a different count for mobile vs desktop
+  // On mobile: 3 images + 1 card = 4
+  // On PC: 5 images + 1 card = 6
+  // Since we use Tailwind for responsive layout, we can just handle the slice logic here
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const initialLimit = isMobile ? 3 : 5;
+  const showLoadMore = filteredItems.length > initialLimit && visibleCount <= initialLimit + 1;
+
+  const displayItems = showLoadMore 
+    ? filteredItems.slice(0, initialLimit) 
+    : filteredItems;
 
   return (
     <section id="work" className="py-24 bg-white">
@@ -145,7 +160,10 @@ export function Portfolio() {
           {categories.map((category) => (
             <motion.button
               key={category}
-              onClick={() => setActiveCategory(category)}
+              onClick={() => {
+                setActiveCategory(category);
+                setVisibleCount(isMobile ? 4 : 6); // Reset on category change
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
@@ -164,8 +182,8 @@ export function Portfolio() {
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          <AnimatePresence>
-            {filteredItems.map((item) => (
+          <AnimatePresence mode="popLayout">
+            {displayItems.map((item) => (
               <motion.div
                 key={item.id}
                 layout
@@ -177,8 +195,7 @@ export function Portfolio() {
                 className="group cursor-pointer"
                 onClick={() => setSelectedImage(item.image)}
               >
-                <div className="aspect-square overflow-hidden rounded-2xl relative mb-3">
-                  {/* Reveal overlay — slides away to reveal image */}
+                <div className="aspect-square overflow-hidden rounded-2xl relative mb-3 shadow-sm group-hover:shadow-md transition-shadow duration-300">
                   <motion.div
                     variants={overlayRevealVariants}
                     initial="hidden"
@@ -186,7 +203,6 @@ export function Portfolio() {
                     viewport={{ once: true, margin: '-50px' }}
                     className="absolute inset-0 bg-gradient-to-r from-[#EFE6DA] to-[#C9A961]/60 z-20 origin-right"
                   />
-
                   <img
                     src={item.image}
                     alt={item.label}
@@ -200,9 +216,29 @@ export function Portfolio() {
                 <p className="text-sm text-[#C9A961]">{item.category}</p>
               </motion.div>
             ))}
+
+            {/* The 6th card (or 4th on mobile) acting as Load More */}
+            {showLoadMore && (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="aspect-square rounded-2xl bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:bg-[#EFE6DA]/30 transition-colors duration-300"
+                onClick={() => setVisibleCount(999)} // Show all
+              >
+                <div className="w-16 h-16 rounded-full bg-[#E8B4B0] text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-[#E8B4B0]/20">
+                  <span className="text-2xl">+</span>
+                </div>
+                <h4 className="font-serif text-xl text-[#1a1a1a] mb-1">View More</h4>
+                <p className="text-xs text-gray-500 uppercase tracking-widest">
+                  {filteredItems.length - initialLimit} transformations
+                </p>
+              </motion.div>
+            )}
           </AnimatePresence>
         </motion.div>
       </div>
+>
 
       {/* Lightbox */}
       <AnimatePresence>
