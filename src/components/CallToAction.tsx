@@ -56,7 +56,7 @@ export function CallToAction() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
             <MagneticButton
-              href="#"
+              href="https://wa.me/917893256626"
               className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#1a1a1a] text-white px-8 py-4 rounded-full font-medium hover:bg-[#C9A961] transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-[#C9A961]/25"
               strength={0.3}
             >
@@ -64,7 +64,7 @@ export function CallToAction() {
               Book Appointment
             </MagneticButton>
             <MagneticButton
-              href="#"
+              href="https://wa.me/917893256626"
               className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#25D366] text-white px-8 py-4 rounded-full font-medium hover:bg-[#128C7E] transition-all duration-300 shadow-md hover:shadow-lg"
               strength={0.3}
             >
@@ -72,7 +72,7 @@ export function CallToAction() {
               WhatsApp Now
             </MagneticButton>
             <MagneticButton
-              href="tel:+1234567890"
+              href="tel:+917893256626"
               className="w-full sm:w-auto flex items-center justify-center gap-2 border-2 border-[#1a1a1a] text-[#1a1a1a] px-8 py-4 rounded-full font-medium hover:bg-[#EFE6DA] transition-all duration-300"
               strength={0.3}
             >
