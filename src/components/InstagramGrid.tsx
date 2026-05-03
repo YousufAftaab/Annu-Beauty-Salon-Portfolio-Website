@@ -2,6 +2,15 @@ import React from 'react';
 import { Instagram } from 'lucide-react';
 const igPosts = [
   {
+    type: 'link',
+    url: 'https://instagram.com/annubeautysalon',
+    label: 'Follow @annubeautysalon',
+  },
+  {
+    type: 'video',
+    url: '/videos/mallu-1.mp4',
+  },
+  {
     type: 'video',
     url: '/videos/mallu-2.mp4',
   },
@@ -16,10 +25,6 @@ const igPosts = [
   {
     type: 'video',
     url: '/videos/Video-711.mp4',
-  },
-  {
-    type: 'video',
-    url: '/videos/207cb5d4-8f3d-4197-aee8-a6d34c5185ae.mp4',
   },
 ];
 
@@ -54,6 +59,18 @@ export function InstagramGrid() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[1.02]"
                   style={{ imageRendering: 'high-quality' }}
                 />
+              ) : post.type === 'link' ? (
+                <a
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full h-full flex flex-col items-center justify-center bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] group-hover:bg-[#EFE6DA]/50 transition-colors duration-300"
+                >
+                  <Instagram size={32} className="text-[#C9A961] mb-2" />
+                  <span className="text-[10px] uppercase tracking-widest text-gray-500 font-medium">
+                    Follow Us
+                  </span>
+                </a>
               ) : (
                 <img
                   src={post.url}
