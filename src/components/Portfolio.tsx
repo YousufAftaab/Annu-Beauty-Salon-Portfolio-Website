@@ -53,24 +53,6 @@ const portfolioItems = [
     image: '/images/soft-glam-pink.jpg',
   },
   {
-    id: 13,
-    category: 'Soft Glam',
-    label: 'Natural Evening Glow',
-    image: '/images/casual-event-look.jpg',
-  },
-  {
-    id: 14,
-    category: 'Soft Glam',
-    label: 'Golden Hour Radiance',
-    image: '/images/soft-glam-pink.jpg',
-  },
-  {
-    id: 15,
-    category: 'Soft Glam',
-    label: 'Dewy Finish Look',
-    image: '/images/casual-event-look.jpg',
-  },
-  {
     id: 5,
     category: 'Bridal Makeup',
     label: 'Radiant South Indian',
@@ -98,24 +80,6 @@ const portfolioItems = [
     id: 9,
     category: 'Nail Art',
     label: 'Pink Glitter Stardust',
-    image: '/images/nail-art-pink-glitter.jpg',
-  },
-  {
-    id: 16,
-    category: 'Nail Art',
-    label: 'French Classic',
-    image: '/images/nail-art-red-glam.jpg',
-  },
-  {
-    id: 17,
-    category: 'Nail Art',
-    label: 'Chrome Finish',
-    image: '/images/nail-art-pink-brown.jpg',
-  },
-  {
-    id: 18,
-    category: 'Nail Art',
-    label: 'Matte Elegance',
     image: '/images/nail-art-pink-glitter.jpg',
   },
 ];
