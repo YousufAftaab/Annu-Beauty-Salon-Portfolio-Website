@@ -238,7 +238,6 @@ export function Portfolio() {
           </AnimatePresence>
         </motion.div>
       </div>
->
 
       {/* Lightbox */}
       <AnimatePresence>
