@@ -3,15 +3,15 @@ import { Instagram } from 'lucide-react';
 const igPosts = [
   {
     type: 'video',
-    url: '/videos/207cb5d4-8f3d-4197-aee8-a6d34c5185ae.mp4',
+    url: '/videos/mallu-1.mp4',
   },
   {
     type: 'video',
-    url: '/videos/e49d84af-73a2-4974-a0ea-acd7370eb4d7.mp4',
+    url: '/videos/mallu-2.mp4',
   },
   {
     type: 'video',
-    url: '/videos/07c0eae0-ef96-4476-9813-0565342401b3.mp4',
+    url: '/videos/mallu-3.mp4',
   },
   {
     type: 'video',
@@ -23,7 +23,7 @@ const igPosts = [
   },
   {
     type: 'video',
-    url: '/videos/07c0eae0-ef96-4476-9813-0565342401b3.mp4',
+    url: '/videos/207cb5d4-8f3d-4197-aee8-a6d34c5185ae.mp4',
   },
 ];
 
@@ -45,7 +45,7 @@ export function InstagramGrid() {
           {igPosts.map((post, idx) => (
             <div
               key={idx}
-              className="group relative aspect-square overflow-hidden rounded-xl block bg-gray-100"
+              className="group relative aspect-square overflow-hidden rounded-xl block bg-gray-100 shadow-sm"
             >
               {post.type === 'video' ? (
                 <video
@@ -54,13 +54,16 @@ export function InstagramGrid() {
                   muted
                   loop
                   playsInline
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  preload="auto"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[1.02]"
+                  style={{ imageRendering: 'high-quality' }}
                 />
               ) : (
                 <img
                   src={post.url}
                   alt="Instagram post"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[1.02]"
                 />
               )}
 
