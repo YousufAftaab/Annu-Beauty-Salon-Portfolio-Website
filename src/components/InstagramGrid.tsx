@@ -2,11 +2,6 @@ import React from 'react';
 import { Instagram } from 'lucide-react';
 const igPosts = [
   {
-    type: 'link',
-    url: 'https://instagram.com/annubeautysalon',
-    label: 'Follow @annubeautysalon',
-  },
-  {
     type: 'video',
     url: '/videos/mallu-1.mp4',
   },
