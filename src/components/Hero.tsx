@@ -1,15 +1,27 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useLenis } from 'lenis/react';
 import { MagneticButton } from './MagneticButton';
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const lenis = useLenis();
 
   // Parallax: track section scroll progress
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
+
+  const handleScroll = (id: string) => {
+    if (lenis) {
+      lenis.scrollTo(id, {
+        offset: 0,
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    }
+  };
 
   // Background moves at 50% speed (parallax)
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
@@ -59,14 +71,22 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <MagneticButton
               href="#work"
-              className="w-full sm:w-auto bg-[#1a1a1a] text-white px-8 py-3.5 rounded-full text-sm font-medium hover:bg-[#C9A961] transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A961]/25 inline-block text-center"
+              onClick={(e) => {
+                e.preventDefault();
+                handleScroll('#work');
+              }}
+              className="w-full sm:w-auto bg-[#1a1a1a] text-white px-8 py-3.5 rounded-full text-sm font-medium hover:bg-[#C9A961] transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A961]/25 inline-block text-center cursor-pointer"
               strength={0.35}
             >
               View Work
             </MagneticButton>
             <MagneticButton
               href="#book"
-              className="w-full sm:w-auto border border-[#1a1a1a] text-[#1a1a1a] px-8 py-3.5 rounded-full text-sm font-medium hover:bg-[#EFE6DA] transition-all duration-300 inline-block text-center"
+              onClick={(e) => {
+                e.preventDefault();
+                handleScroll('#book');
+              }}
+              className="w-full sm:w-auto border border-[#1a1a1a] text-[#1a1a1a] px-8 py-3.5 rounded-full text-sm font-medium hover:bg-[#EFE6DA] transition-all duration-300 inline-block text-center cursor-pointer"
               strength={0.35}
             >
               Book Appointment
