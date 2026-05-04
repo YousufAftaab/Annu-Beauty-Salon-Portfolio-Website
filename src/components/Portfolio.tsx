@@ -98,25 +98,34 @@ const portfolioItems = [
 
 
 
-// Sophisticated image reveal: a colored overlay wipes away
-const imageRevealVariants = {
+// Sophisticated image reveal: "Taking out cards" (expand) and "Shuffle cards" (collapse)
+const cardVariants = {
   hidden: {
     opacity: 0,
-    scale: 1.05,
+    y: 40,
+    scale: 0.9,
+    rotate: -2,
   },
-  visible: {
+  visible: (i: number) => ({
     opacity: 1,
+    y: 0,
     scale: 1,
+    rotate: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      type: 'spring',
+      stiffness: 120,
+      damping: 14,
+      delay: i * 0.08, // Staggered entrance for "taking out" effect
     },
-  },
+  }),
   exit: {
     opacity: 0,
-    scale: 0.95,
+    scale: 0.85,
+    y: 20,
+    rotate: 5, // Tilt for "shuffle" effect
     transition: {
-      duration: 0.3,
+      duration: 0.4,
+      ease: [0.4, 0, 0.2, 1],
     },
   },
 };
@@ -196,13 +205,14 @@ export function Portfolio() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <AnimatePresence mode="popLayout">
-            {displayItems.map((item) => (
+            {displayItems.map((item, index) => (
               <motion.div
                 key={item.id}
                 layout
-                variants={imageRevealVariants}
+                custom={index}
+                variants={cardVariants}
                 initial="hidden"
-                whileInView="visible"
+                animate="visible"
                 exit="exit"
                 viewport={{ once: true, margin: '-50px' }}
                 className="group cursor-pointer"
