@@ -11,6 +11,12 @@ const categories = [
 
 const portfolioItems = [
   {
+    id: 14,
+    category: 'Bridal Makeup',
+    label: 'Golden Hour Bridal',
+    image: '/images/bridal-gold-jewelry.jpg',
+  },
+  {
     id: 13,
     category: 'Bridal Makeup',
     label: 'Royal Red Bridal',
@@ -130,19 +136,20 @@ const overlayRevealVariants = {
 export function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('Bridal Makeup');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(6); // Default to desktop (5 + 1)
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Determine initial count based on screen size (simulated via visibleCount)
-  // We will slice the array to (visibleCount - 1) and add the "Load More" card
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const filteredItems = portfolioItems.filter((item) => item.category === activeCategory);
   
-  // Use a different count for mobile vs desktop
-  // On mobile: 3 images + 1 card = 4
-  // On PC: 5 images + 1 card = 6
-  // Since we use Tailwind for responsive layout, we can just handle the slice logic here
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const initialLimit = isMobile ? 3 : 5;
-  const showLoadMore = filteredItems.length > initialLimit && visibleCount <= initialLimit + 1;
+  const showLoadMore = filteredItems.length > initialLimit && !isExpanded;
 
   const displayItems = showLoadMore 
     ? filteredItems.slice(0, initialLimit) 
@@ -168,7 +175,7 @@ export function Portfolio() {
               key={category}
               onClick={() => {
                 setActiveCategory(category);
-                setVisibleCount(isMobile ? 4 : 6); // Reset on category change
+                setIsExpanded(false); // Reset on category change
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -230,7 +237,7 @@ export function Portfolio() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="aspect-square rounded-2xl bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:bg-[#EFE6DA]/30 transition-colors duration-300"
-                onClick={() => setVisibleCount(999)} // Show all
+                onClick={() => setIsExpanded(true)} // Show all
               >
                 <div className="w-16 h-16 rounded-full bg-[#E8B4B0] text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-[#E8B4B0]/20">
                   <span className="text-2xl">+</span>
@@ -238,6 +245,27 @@ export function Portfolio() {
                 <h4 className="font-serif text-xl text-[#1a1a1a] mb-1">View More</h4>
                 <p className="text-xs text-gray-500 uppercase tracking-widest">
                   {filteredItems.length - initialLimit} transformations
+                </p>
+              </motion.div>
+            )}
+            {/* The Load Less card, shown only when expanded */}
+            {isExpanded && (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="aspect-square rounded-2xl bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:bg-[#EFE6DA]/30 transition-colors duration-300"
+                onClick={() => {
+                  setIsExpanded(false);
+                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <div className="w-16 h-16 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-black/5">
+                  <span className="text-2xl">−</span>
+                </div>
+                <h4 className="font-serif text-xl text-[#1a1a1a] mb-1">View Less</h4>
+                <p className="text-xs text-gray-500 uppercase tracking-widest">
+                  Collapse list
                 </p>
               </motion.div>
             )}
