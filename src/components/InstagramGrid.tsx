@@ -1,4 +1,3 @@
-import React from 'react';
 import { Instagram } from 'lucide-react';
 const igPosts = [
   {
@@ -61,7 +60,6 @@ export function InstagramGrid() {
                   playsInline
                   preload="auto"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[1.02]"
-                  style={{ imageRendering: 'high-quality' }}
                 />
               ) : post.type === 'link' ? (
                 <a
