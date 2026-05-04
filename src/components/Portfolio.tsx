@@ -11,18 +11,6 @@ const categories = [
 
 const portfolioItems = [
   {
-    id: 14,
-    category: 'Bridal Makeup',
-    label: 'Golden Hour Bridal',
-    image: '/images/bridal-gold-jewelry.jpg',
-  },
-  {
-    id: 13,
-    category: 'Bridal Makeup',
-    label: 'Royal Red Bridal',
-    image: '/images/bridal-royal-red.jpg',
-  },
-  {
     id: 11,
     category: 'Bridal Makeup',
     label: 'Traditional Bridal Elegance',

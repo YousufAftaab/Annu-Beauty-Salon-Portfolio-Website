@@ -26,17 +26,6 @@ export function CallToAction() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center"
           >
-            <motion.div 
-              initial={{ scale: 0.8, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A961]/10 border border-[#C9A961]/30 text-[#C9A961] mb-8"
-            >
-              <Sparkles size={16} />
-              <span className="text-xs uppercase tracking-widest font-semibold">Available for Bookings</span>
-            </motion.div>
-
             <h2 className="text-5xl md:text-7xl font-serif mb-6 text-white leading-tight">
               Let's Create Your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C9A961] via-[#EFE6DA] to-[#C9A961]">
@@ -81,15 +70,6 @@ export function CallToAction() {
               </div>
             </div>
 
-            <motion.p 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 1, duration: 1 }}
-              className="mt-12 text-sm text-gray-500 uppercase tracking-[0.2em]"
-            >
-              Mancherial • Hyderabad • Available Worldwide
-            </motion.p>
           </motion.div>
         </div>
       </div>
