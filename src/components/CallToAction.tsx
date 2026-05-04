@@ -1,87 +1,102 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Phone, MessageCircle, Calendar } from 'lucide-react';
+import { Phone, MessageCircle, Calendar, Sparkles } from 'lucide-react';
 import { MagneticButton } from './MagneticButton';
-
-const draw = {
-  hidden: { pathLength: 0, opacity: 0 },
-  visible: {
-    pathLength: 1,
-    opacity: 1,
-    transition: {
-      pathLength: { duration: 1.2, ease: 'easeInOut' },
-      opacity: { duration: 0.3 },
-    },
-  },
-};
 
 export function CallToAction() {
   return (
-    <section id="book" className="py-24 bg-[#E8B4B0] relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A961]/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
-
-      <motion.svg
-        viewBox="0 0 1200 400"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="absolute inset-0 w-full h-full pointer-events-none"
-      >
-        <motion.path
-          d="M 200 250 C 400 150, 800 150, 1000 250"
-          fill="none"
-          strokeWidth="2"
-          stroke="rgba(0,0,0,0.2)"
-          variants={draw}
+    <section id="book" className="py-32 relative overflow-hidden bg-[#121212]">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="/images/cta-bg.png" 
+          alt="Background" 
+          className="w-full h-full object-cover opacity-30 scale-105"
         />
-      </motion.svg>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#121212] via-transparent to-[#121212]"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
+      </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto bg-white/90 backdrop-blur-md rounded-3xl p-10 md:p-16 text-center shadow-xl"
-        >
-          <h2 className="text-4xl md:text-5xl font-serif mb-4 text-[#1a1a1a]">
-            Book Your Transformation
-          </h2>
-          <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-            Ready to elevate your look? Secure your spot today. For bridal
-            inquiries, please book at least 3 months in advance.
-          </p>
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center"
+          >
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A961]/10 border border-[#C9A961]/30 text-[#C9A961] mb-8"
+            >
+              <Sparkles size={16} />
+              <span className="text-xs uppercase tracking-widest font-semibold">Available for Bookings</span>
+            </motion.div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
-            <MagneticButton
-              href="https://wa.me/917075997545"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#1a1a1a] text-white px-8 py-4 rounded-full font-medium hover:bg-[#C9A961] transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-[#C9A961]/25"
-              strength={0.3}
+            <h2 className="text-5xl md:text-7xl font-serif mb-6 text-white leading-tight">
+              Let's Create Your <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C9A961] via-[#EFE6DA] to-[#C9A961]">
+                Masterpiece
+              </span>
+            </h2>
+            
+            <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+              Every bride deserves a unique glow. Whether it's your big day or a special event, 
+              I'm here to bring your vision to life with precision and passion.
+            </p>
+
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+              <MagneticButton
+                href="https://wa.me/917075997545"
+                className="group relative w-full md:w-auto flex items-center justify-center gap-3 bg-[#C9A961] text-white px-10 py-5 rounded-full font-medium transition-all duration-500 overflow-hidden shadow-2xl shadow-[#C9A961]/20 hover:scale-105"
+                strength={0.2}
+              >
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                <Calendar size={22} className="relative z-10" />
+                <span className="relative z-10 text-lg">Schedule Session</span>
+              </MagneticButton>
+
+              <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                <MagneticButton
+                  href="https://wa.me/917075997545"
+                  className="flex-1 flex items-center justify-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 text-white px-8 py-5 rounded-full font-medium hover:bg-white/10 transition-all duration-300"
+                  strength={0.2}
+                >
+                  <MessageCircle size={20} className="text-[#25D366]" />
+                  <span>WhatsApp</span>
+                </MagneticButton>
+
+                <MagneticButton
+                  href="tel:+917075997545"
+                  className="flex-1 flex items-center justify-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 text-white px-8 py-5 rounded-full font-medium hover:bg-white/10 transition-all duration-300"
+                  strength={0.2}
+                >
+                  <Phone size={20} className="text-[#C9A961]" />
+                  <span>Call Us</span>
+                </MagneticButton>
+              </div>
+            </div>
+
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1, duration: 1 }}
+              className="mt-12 text-sm text-gray-500 uppercase tracking-[0.2em]"
             >
-              <Calendar size={20} />
-              Book Appointment
-            </MagneticButton>
-            <MagneticButton
-              href="https://wa.me/917075997545"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#25D366] text-white px-8 py-4 rounded-full font-medium hover:bg-[#128C7E] transition-all duration-300 shadow-md hover:shadow-lg"
-              strength={0.3}
-            >
-              <MessageCircle size={20} />
-              WhatsApp Now
-            </MagneticButton>
-            <MagneticButton
-              href="tel:+917075997545"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 border-2 border-[#1a1a1a] text-[#1a1a1a] px-8 py-4 rounded-full font-medium hover:bg-[#EFE6DA] transition-all duration-300"
-              strength={0.3}
-            >
-              <Phone size={20} />
-              Call Now
-            </MagneticButton>
-          </div>
-        </motion.div>
+              Mancherial • Hyderabad • Available Worldwide
+            </motion.p>
+          </motion.div>
+        </div>
       </div>
+      
+      {/* Animated accent lines */}
+      <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C9A961]/20 to-transparent -rotate-12 blur-sm"></div>
+      <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#E8B4B0]/10 to-transparent rotate-12 blur-sm"></div>
     </section>
   );
 }
