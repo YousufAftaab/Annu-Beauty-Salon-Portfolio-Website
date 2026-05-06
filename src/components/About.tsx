@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 export function About() {
   return (
@@ -56,13 +55,13 @@ export function About() {
             <h2 className="text-3xl md:text-5xl font-serif mb-6 text-[#1a1a1a]">
               Meet the Artist
             </h2>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+            <p className="text-lg text-neutral-700 mb-6 leading-relaxed">
               Hi, I’m Shabana Anjum, a professional makeup artist passionate about enhancing natural beauty for every occasion.
             </p>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+            <p className="text-lg text-neutral-700 mb-6 leading-relaxed">
               From bridal transformations to casual, glossy looks, and complete salon services including nails and styling, I focus on creating looks that suit each individual’s style and personality.
             </p>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+            <p className="text-lg text-neutral-700 mb-6 leading-relaxed">
               With years of experience, my goal is simple: to make you feel confident, radiant, and the best version of yourself, no matter the occasion.
             </p>
 
@@ -79,7 +78,7 @@ export function About() {
                 </h3>
                 <ul className="text-sm text-gray-600 space-y-1">
                   <li>Bridal Makeup</li>
-                  <li>Hair Styling (Advance)</li>
+                  <li>Advanced Hair Styling</li>
                   <li>Nail Care</li>
                   <li>Skincare</li>
                 </ul>

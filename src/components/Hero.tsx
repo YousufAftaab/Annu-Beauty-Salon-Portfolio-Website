@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 import { MagneticButton } from './MagneticButton';
@@ -71,7 +71,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <MagneticButton
               href="#work"
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent) => {
                 e.preventDefault();
                 handleScroll('#work');
               }}
@@ -82,7 +82,7 @@ export function Hero() {
             </MagneticButton>
             <MagneticButton
               href="#book"
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent) => {
                 e.preventDefault();
                 handleScroll('#book');
               }}

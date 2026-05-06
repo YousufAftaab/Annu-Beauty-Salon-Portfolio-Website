@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Phone, MessageCircle, Calendar, Sparkles } from 'lucide-react';
+import { Phone, MessageCircle, Calendar } from 'lucide-react';
 import { MagneticButton } from './MagneticButton';
 
 export function CallToAction() {

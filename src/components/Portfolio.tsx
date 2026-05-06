@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 
 const categories = [
   'Bridal Makeup',
   'Soft Glam',
-  'Pregnancy Makeup',
+  'Reception Glam',
   'Nail Art',
 ];
 
@@ -36,8 +36,8 @@ const portfolioItems = [
   },
   {
     id: 1,
-    category: 'Pregnancy Makeup',
-    label: 'Traditional Maternity Glam',
+    category: 'Reception Glam',
+    label: 'Traditional Reception Glam',
     image: '/images/pregnancy-maternity-glam.jpg',
   },
   {
@@ -102,30 +102,27 @@ const portfolioItems = [
 const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 40,
-    scale: 0.9,
-    rotate: -2,
+    y: 60,
+    scale: 0.98,
   },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     scale: 1,
-    rotate: 0,
     transition: {
       type: 'spring',
-      stiffness: 120,
-      damping: 14,
-      delay: i * 0.08, // Staggered entrance for "taking out" effect
+      stiffness: 100,
+      damping: 20,
+      delay: i * 0.1,
     },
   }),
   exit: {
     opacity: 0,
-    scale: 0.85,
+    scale: 0.95,
     y: 20,
-    rotate: 5, // Tilt for "shuffle" effect
     transition: {
-      duration: 0.4,
-      ease: [0.4, 0, 0.2, 1],
+      duration: 0.3,
+      ease: 'easeInOut',
     },
   },
 };
@@ -148,7 +145,7 @@ export function Portfolio() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -178,7 +175,7 @@ export function Portfolio() {
         </div>
 
         {/* Filters with micro-interactions */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-16">
           {categories.map((category) => (
             <motion.button
               key={category}
@@ -186,12 +183,12 @@ export function Portfolio() {
                 setActiveCategory(category);
                 setIsExpanded(false); // Reset on category change
               }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${
                 activeCategory === category
-                  ? 'bg-[#E8B4B0] text-white shadow-md shadow-[#E8B4B0]/30'
-                  : 'bg-[#FDFBF7] text-gray-600 hover:bg-[#EFE6DA]'
+                  ? 'bg-[#1a1a1a] text-white border-[#1a1a1a] shadow-lg shadow-black/10'
+                  : 'bg-white text-gray-600 border-[#EFE6DA] hover:border-[#E8B4B0] hover:text-[#E8B4B0]'
               }`}
             >
               {category}
@@ -212,31 +209,31 @@ export function Portfolio() {
                 custom={index}
                 variants={cardVariants}
                 initial="hidden"
-                animate="visible"
-                exit="exit"
+                whileInView="visible"
                 viewport={{ once: true, margin: '-50px' }}
+                exit="exit"
                 className="group cursor-pointer"
                 onClick={() => setSelectedImage(item.image)}
               >
-                <div className="aspect-square overflow-hidden rounded-2xl relative mb-3 shadow-sm group-hover:shadow-md transition-shadow duration-300">
+                <div className="aspect-square overflow-hidden rounded-xl relative mb-4 shadow-sm group-hover:shadow-2xl transition-all duration-500">
                   <motion.div
                     variants={overlayRevealVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: '-50px' }}
-                    className="absolute inset-0 bg-gradient-to-r from-[#EFE6DA] to-[#C9A961]/60 z-20 origin-right"
+                    className="absolute inset-0 bg-gradient-to-r from-[#FDFBF7] to-[#EFE6DA] z-20 origin-right"
                   />
                   <img
                     src={item.image}
                     alt={item.label}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
                 </div>
-                <h4 className="font-serif text-lg text-[#1a1a1a]">
+                <h4 className="font-serif text-xl font-bold text-[#111111] mb-1">
                   {item.label}
                 </h4>
-                <p className="text-sm text-[#C9A961]">{item.category}</p>
+                <p className="text-xs uppercase tracking-widest text-[#C9A961] font-medium">{item.category}</p>
               </motion.div>
             ))}
 
@@ -246,16 +243,18 @@ export function Portfolio() {
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="aspect-square rounded-2xl bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:bg-[#EFE6DA]/30 transition-colors duration-300"
+                whileHover={{ y: -5 }}
+                className="aspect-square rounded-xl bg-white border border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:border-[#E8B4B0] hover:bg-[#FDFBF7] transition-all duration-500 shadow-sm hover:shadow-xl"
                 onClick={() => setIsExpanded(true)} // Show all
               >
-                <div className="w-16 h-16 rounded-full bg-[#E8B4B0] text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-[#E8B4B0]/20">
-                  <span className="text-2xl">+</span>
+                <div className="w-16 h-16 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center mb-6 group-hover:bg-[#E8B4B0] transition-colors duration-500 shadow-lg shadow-black/10">
+                  <ArrowRight className="w-8 h-8 transition-transform duration-500 group-hover:translate-x-1" />
                 </div>
-                <h4 className="font-serif text-xl text-[#1a1a1a] mb-1">View More</h4>
-                <p className="text-xs text-gray-500 uppercase tracking-widest">
+                <h4 className="font-serif text-2xl font-bold text-[#1a1a1a] mb-2">View More</h4>
+                <p className="text-sm text-gray-500 uppercase tracking-widest font-medium">
                   {filteredItems.length - initialLimit} transformations
                 </p>
+                <div className="mt-4 w-8 h-1 bg-[#E8B4B0] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
               </motion.div>
             )}
             {/* The Load Less card, shown only when expanded */}
