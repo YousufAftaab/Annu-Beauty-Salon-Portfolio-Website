@@ -6,6 +6,7 @@ const categories = [
   'Bridal Makeup',
   'Soft Glam',
   'Reception Glam',
+  'Hairstyles',
   'Nail Art',
 ];
 
@@ -93,6 +94,18 @@ const portfolioItems = [
     category: 'Nail Art',
     label: 'Pink Glitter Stardust',
     image: '/images/nail-art-pink-glitter.jpg',
+  },
+  {
+    id: 15,
+    category: 'Hairstyles',
+    label: 'Traditional Floral Braid',
+    image: '/images/hairstyle-1.jpg',
+  },
+  {
+    id: 16,
+    category: 'Hairstyles',
+    label: 'Intricate Beaded Braid',
+    image: '/images/hairstyle-2.jpg',
   },
 ];
 
