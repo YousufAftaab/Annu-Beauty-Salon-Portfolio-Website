@@ -107,6 +107,12 @@ const portfolioItems = [
     label: 'Intricate Beaded Braid',
     image: '/images/hairstyle-2.jpg',
   },
+  {
+    id: 17,
+    category: 'Nail Art',
+    label: 'Pink & Gold Shimmer',
+    image: '/images/nail-art-pink-gold.jpg',
+  },
 ];
 
 
