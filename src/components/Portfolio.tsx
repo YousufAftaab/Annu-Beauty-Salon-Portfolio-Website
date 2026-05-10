@@ -108,6 +108,30 @@ const portfolioItems = [
     image: '/images/hairstyle-2.jpg',
   },
   {
+    id: 18,
+    category: 'Hairstyles',
+    label: 'Butterfly Bloom Braid',
+    image: '/images/hairstyle-3.jpg',
+  },
+  {
+    id: 19,
+    category: 'Hairstyles',
+    label: 'Royal Jasmine Braid',
+    image: '/images/hairstyle-4.jpg',
+  },
+  {
+    id: 20,
+    category: 'Hairstyles',
+    label: 'Divine Temple Braid',
+    image: '/images/hairstyle-5.jpg',
+  },
+  {
+    id: 21,
+    category: 'Hairstyles',
+    label: 'Jeweled Ribbon Braid',
+    image: '/images/hairstyle-6.jpg',
+  },
+  {
     id: 17,
     category: 'Nail Art',
     label: 'Pink & Gold Shimmer',
