@@ -5,7 +5,7 @@ import { X, ArrowRight } from 'lucide-react';
 const categories = [
   'Bridal Makeup',
   'Soft Glam',
-  'Reception Glam',
+  'Maternity Glam',
   'Hairstyles',
   'Nail Art',
 ];
@@ -37,7 +37,7 @@ const portfolioItems = [
   },
   {
     id: 1,
-    category: 'Reception Glam',
+    category: 'Maternity Glam',
     label: 'Traditional Reception Glam',
     image: '/images/pregnancy-maternity-glam.jpg',
   },
@@ -96,12 +96,6 @@ const portfolioItems = [
     image: '/images/nail-art-pink-glitter.jpg',
   },
   {
-    id: 15,
-    category: 'Hairstyles',
-    label: 'Traditional Floral Braid',
-    image: '/images/hairstyle-1.jpg',
-  },
-  {
     id: 16,
     category: 'Hairstyles',
     label: 'Intricate Beaded Braid',
@@ -118,6 +112,12 @@ const portfolioItems = [
     category: 'Hairstyles',
     label: 'Royal Jasmine Braid',
     image: '/images/hairstyle-4.jpg',
+  },
+  {
+    id: 15,
+    category: 'Hairstyles',
+    label: 'Traditional Floral Braid',
+    image: '/images/hairstyle-1.jpg',
   },
   {
     id: 20,
@@ -258,7 +258,7 @@ export function Portfolio() {
                 className="group cursor-pointer"
                 onClick={() => setSelectedImage(item.image)}
               >
-                <div className="aspect-[4/5] overflow-hidden rounded-xl relative mb-4 shadow-sm group-hover:shadow-2xl transition-all duration-500">
+                <div className="aspect-[3/4] overflow-hidden rounded-xl relative mb-4 shadow-sm group-hover:shadow-2xl transition-all duration-500">
                   <motion.div
                     variants={overlayRevealVariants}
                     initial="hidden"
@@ -269,7 +269,7 @@ export function Portfolio() {
                   <img
                     src={item.image}
                     alt={item.label}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    className={`w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 ${item.category === 'Hairstyles' ? 'object-top' : 'object-center'}`}
                   />
                   <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
                 </div>
@@ -287,7 +287,7 @@ export function Portfolio() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 whileHover={{ y: -5 }}
-                className="aspect-[4/5] rounded-xl bg-white border border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:border-[#E8B4B0] hover:bg-[#FDFBF7] transition-all duration-500 shadow-sm hover:shadow-xl"
+                className="aspect-[3/4] rounded-xl bg-white border border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:border-[#E8B4B0] hover:bg-[#FDFBF7] transition-all duration-500 shadow-sm hover:shadow-xl"
                 onClick={() => setIsExpanded(true)} // Show all
               >
                 <div className="w-16 h-16 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center mb-6 group-hover:bg-[#E8B4B0] transition-colors duration-500 shadow-lg shadow-black/10">
@@ -306,7 +306,7 @@ export function Portfolio() {
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="aspect-[4/5] rounded-2xl bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:bg-[#EFE6DA]/30 transition-colors duration-300"
+                className="aspect-[3/4] rounded-2xl bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:bg-[#EFE6DA]/30 transition-colors duration-300"
                 onClick={() => {
                   setIsExpanded(false);
                   document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
