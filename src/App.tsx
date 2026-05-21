@@ -1,5 +1,9 @@
 import ReactLenis from 'lenis/react';
+import { injectSpeedInsights } from '@vercel/speed-insights';
 import { Home } from './pages/Home';
+
+// Initialize Vercel Speed Insights
+injectSpeedInsights();
 
 export function App() {
   return (
