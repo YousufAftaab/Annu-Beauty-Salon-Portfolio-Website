@@ -1,92 +1,101 @@
 import { motion } from 'framer-motion';
+import { Palette, GraduationCap, Scissors, Sparkles } from 'lucide-react';
+
 export function About() {
   return (
-    <section id="about" className="py-24 bg-[#FDFBF7]">
-      <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
-          {/* Image */}
-          <motion.div
-            initial={{
-              opacity: 0,
-              x: -30
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0
-            }}
-            viewport={{
-              once: true
-            }}
-            transition={{
-              duration: 0.8
-            }}
-            className="w-full md:w-1/2 relative">
-            
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden relative z-10">
-              <img
-                src="/images/artist-new.png"
-                alt="Shabana Anjum - Beauty Artist"
-                className="w-full h-full object-cover" />
-              
+    <section
+      id="artist"
+      className="relative w-full rounded-island bg-white overflow-hidden p-6 sm:p-10 md:p-14 lg:p-20 border border-hairline shadow-sm"
+    >
+      {/* Main Two-Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        {/* Left Column: Artist Image */}
+        <div className="lg:col-span-5 relative">
+          <div className="relative aspect-[4/5] rounded-[1.75rem] overflow-hidden bg-offwhite border border-hairline shadow-lg">
+            <img
+              src="/images/artist-new.png"
+              alt="Shabana Anjum - Master Makeup Artist & Educator"
+              className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
+            />
+            {/* Elegant Caption Overlay */}
+            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-navy/90 backdrop-blur-md text-white border border-lightblue/20 flex items-center justify-between">
+              <div>
+                <span className="text-base sm:text-lg font-bold font-sans tracking-tight block">Shabana Anjum</span>
+                <span className="text-xs text-lightblue">23+ Years Master Artistry</span>
+              </div>
+              <span className="text-xs text-ghost/80">Mancherial</span>
             </div>
-            {/* Decorative background shape */}
-            <div className="absolute -bottom-6 -left-6 w-full h-full bg-[#EFE6DA] rounded-3xl z-0"></div>
-          </motion.div>
+          </div>
+        </div>
 
-          {/* Text Content */}
-          <motion.div
-            initial={{
-              opacity: 0,
-              x: 30
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0
-            }}
-            viewport={{
-              once: true
-            }}
-            transition={{
-              duration: 0.8,
-              delay: 0.2
-            }}
-            className="w-full md:w-1/2">
-            
-            <h2 className="text-3xl md:text-5xl font-serif mb-6 text-[#1a1a1a]">
-              Meet the Artist
+        {/* Right Column: Story & Specialties */}
+        <div className="lg:col-span-7 space-y-6">
+          <div>
+            <h2 className="section-title-clamp font-black uppercase text-navy tracking-tight mb-4">
+              MEET SHABANA ANJUM.
             </h2>
-            <p className="text-lg text-neutral-700 mb-6 leading-relaxed">
-              Hi, I’m Shabana Anjum, a professional makeup artist passionate about enhancing natural beauty for every occasion.
+            <p className="text-base sm:text-lg md:text-xl text-ink font-medium leading-relaxed tracking-tight">
+              “Every bride possesses a distinct aura. My goal is simple: to make you feel confident, radiant, and the most captivating version of yourself on your most cherished day.”
             </p>
-            <p className="text-lg text-neutral-700 mb-6 leading-relaxed">
-              From bridal transformations to casual, glossy looks, and complete salon services including nails and styling, I focus on creating looks that suit each individual’s style and personality.
-            </p>
-            <p className="text-lg text-neutral-700 mb-6 leading-relaxed">
-              With years of experience, my goal is simple: to make you feel confident, radiant, and the best version of yourself, no matter the occasion.
-            </p>
+          </div>
 
-            <div className="grid grid-cols-2 gap-6 mt-8">
-              <div className="bg-[#EFE6DA]/50 p-6 rounded-2xl">
-                <h3 className="text-3xl font-serif text-[#C9A961] mb-2">23+</h3>
-                <p className="text-sm font-medium text-gray-800 uppercase tracking-wider">
-                  Years Experience
-                </p>
+          <p className="text-xs sm:text-sm text-muted leading-relaxed font-normal">
+            With over 23 years of dedicated mastery in Mancherial, Mrs. Shabana Anjum has crafted thousands of unforgettable bridal looks, grand reception styles, and maternity celebrations. As founder of Annu Beauty Salon & Academy, she combines traditional South Indian aesthetic elegance with modern high-definition techniques.
+          </p>
+
+          {/* Specialties 2x2 Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div className="mobile-card-target p-5 rounded-2xl bg-offwhite border border-hairline space-y-2 hover:border-royal/30 hover:shadow-md transition-all duration-300">
+              <div className="w-8 h-8 rounded-xl bg-navy/5 flex items-center justify-center text-royal">
+                <Palette className="w-4 h-4" />
               </div>
-              <div className="bg-[#F5D5D0]/30 p-6 rounded-2xl">
-                <h3 className="text-xl font-serif text-[#1a1a1a] mb-2">
-                  Specialties
-                </h3>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>Bridal Makeup</li>
-                  <li>Advanced Hair Styling</li>
-                  <li>Nail Care</li>
-                  <li>Skincare</li>
-                </ul>
-              </div>
+              <h3 className="text-sm font-bold uppercase tracking-wide text-navy">
+                Bridal & Airbrush Makeovers
+              </h3>
+              <p className="text-xs text-muted leading-relaxed">
+                Custom contouring and shade matching tailored to natural undertones, jewellery, and lighting.
+              </p>
             </div>
-          </motion.div>
+
+            <div className="mobile-card-target p-5 rounded-2xl bg-offwhite border border-hairline space-y-2 hover:border-royal/30 hover:shadow-md transition-all duration-300">
+              <div className="w-8 h-8 rounded-xl bg-navy/5 flex items-center justify-center text-royal">
+                <Scissors className="w-4 h-4" />
+              </div>
+              <h3 className="text-sm font-bold uppercase tracking-wide text-navy">
+                Hair Styling & Braids
+              </h3>
+              <p className="text-xs text-muted leading-relaxed">
+                Intricate floral braids, beaded jasmine plaits, bridal buns, and precision feather layer cuts.
+              </p>
+            </div>
+
+            <div className="mobile-card-target p-5 rounded-2xl bg-offwhite border border-hairline space-y-2 hover:border-royal/30 hover:shadow-md transition-all duration-300">
+              <div className="w-8 h-8 rounded-xl bg-navy/5 flex items-center justify-center text-royal">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <h3 className="text-sm font-bold uppercase tracking-wide text-navy">
+                Bespoke Nail Artistry
+              </h3>
+              <p className="text-xs text-muted leading-relaxed">
+                Handcrafted rhinestone adornments, ombré gradients, and durable bridal gel extensions.
+              </p>
+            </div>
+
+            <div className="mobile-card-target p-5 rounded-2xl bg-offwhite border border-hairline space-y-2 hover:border-royal/30 hover:shadow-md transition-all duration-300">
+              <div className="w-8 h-8 rounded-xl bg-navy/5 flex items-center justify-center text-royal">
+                <GraduationCap className="w-4 h-4" />
+              </div>
+              <h3 className="text-sm font-bold uppercase tracking-wide text-navy">
+                Academy Training
+              </h3>
+              <p className="text-xs text-muted leading-relaxed">
+                Certified 1-on-1 practical diploma courses empowering aspiring makeup artists across Telangana.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 }
+

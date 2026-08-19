@@ -1,31 +1,103 @@
-/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@300;400;500;600;700;800;900&display=swap');
 
-/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
-
 :root {
-  --color-bg: #FDFBF7;
-  --color-beige: #EFE6DA;
-  --color-pink-light: #F5D5D0;
-  --color-pink-dark: #E8B4B0;
-  --color-gold: #C9A961;
+  --color-navy: #0f2f63;
+  --color-navy-dark: #0a1d3d;
+  --color-royal: #2563c9;
+  --color-lightblue: #5790e6;
+  --color-teal: #0b6e97;
+  --color-offwhite: #f4f4f4;
+  --color-ink: #0a0a0a;
+  --color-muted: #717784;
+  --color-ghost: #d7dae1;
+  --color-hairline: #e6e8ec;
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 body {
-  background-color: var(--color-bg);
-  color: #1a1a1a;
-  font-family: 'Inter', sans-serif;
+  background-color: var(--color-offwhite);
+  color: var(--color-ink);
+  font-family: 'Onest', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-h1, h2, h3, h4, h5, h6, .font-serif {
-  font-family: 'Playfair Display', serif;
+
+/* ===== EDITORIAL TYPOGRAPHY CLAMPS ===== */
+.hero-title-clamp {
+  font-size: clamp(2.3rem, 9.5vw, 8.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
 }
-/* ===== SMOOTH SCROLL (Lenis & Native Fallback) ===== */
+
+.section-title-clamp {
+  font-size: clamp(1.75rem, 5vw, 3.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.ghost-text-clamp {
+  font-size: clamp(3.5rem, 12vw, 10.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+}
+
+
+
+
+/* ===== FLOATING GLASS PILL NAVBAR ===== */
+.nav-pill-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(230, 232, 236, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(15, 47, 99, 0.1);
+}
+
+.nav-pill-glass-dark {
+  background: rgba(10, 29, 61, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(87, 144, 230, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== INTERACTIVE EDITORIAL ROWS ===== */
+.interactive-row {
+  transition: all 0.35s var(--ease-editorial);
+}
+
+.interactive-row:hover {
+  background-color: #ffffff;
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+  box-shadow: 0 12px 32px -8px rgba(15, 47, 99, 0.08);
+}
+
+.interactive-row:hover .row-arrow {
+  transform: translateX(6px);
+  color: var(--color-royal);
+}
+
+.interactive-row-dark {
+  transition: all 0.35s var(--ease-editorial);
+}
+
+.interactive-row-dark:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.interactive-row-dark:hover .row-arrow {
+  transform: translateX(6px);
+  color: var(--color-lightblue);
+}
+
+/* ===== SMOOTH SCROLL (Lenis) ===== */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -47,95 +119,88 @@ html.lenis body {
   pointer-events: none;
 }
 
-html {
-  scroll-behavior: smooth; /* Native fallback for non-JS or early load */
-}
-
-
-/* ===== GLASSMORPHISM NAVBAR ===== */
-.navbar-glass {
-  background: rgba(253, 251, 247, 0.72);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(201, 169, 97, 0.12);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.04),
-    0 4px 24px rgba(0, 0, 0, 0.03);
-}
-
-/* ===== NAV LINK HOVER UNDERLINE ===== */
-.nav-link-hover {
-  position: relative;
-  color: #1a1a1a;
-}
-.nav-link-hover::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-gold), var(--color-pink-dark));
-  border-radius: 2px;
-  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.nav-link-hover:hover::after {
-  width: 100%;
-}
-.nav-link-hover:hover {
-  color: var(--color-gold);
-}
-
-/* ===== MICRO-INTERACTIONS ===== */
-
-/* Card hover lift */
-.group:hover {
-  transform: translateY(-2px);
-  transition: transform 0.3s ease;
-}
-
-/* Smooth image loading */
-img {
-  transition: opacity 0.5s ease;
-}
-
-/* Focus ring for accessibility */
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 3px;
-  border-radius: 8px;
-}
-
-/* Star rating sparkle on hover */
-@keyframes starSparkle {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-/* Subtle pulse for CTA sections */
-@keyframes gentlePulse {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.25; }
-}
-
-/* Hide scrollbar for clean aesthetic in some galleries if needed */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
 /* ===== SELECTION STYLING ===== */
 ::selection {
-  background: var(--color-gold);
-  color: white;
+  background: var(--color-lightblue);
+  color: #ffffff;
 }
 
-/* ===== SMOOTH SCROLL PERFORMANCE ===== */
 .will-change-transform {
   will-change: transform;
 }
+
+/* ===== MOBILE SCROLL-TRIGGERED HOVER MIRRORING ===== */
+@media (max-width: 1023px), (hover: none) {
+  /* Curated Services Interactive Rows on Mobile Scroll */
+  .interactive-row.mobile-hover-active {
+    background-color: #ffffff;
+    box-shadow: 0 12px 32px -8px rgba(15, 47, 99, 0.1);
+    border-color: rgba(37, 99, 201, 0.3);
+  }
+  .interactive-row.mobile-hover-active h3 {
+    color: var(--color-royal) !important;
+  }
+  .interactive-row.mobile-hover-active p {
+    color: var(--color-ink) !important;
+  }
+  .interactive-row.mobile-hover-active .row-arrow {
+    transform: translateX(6px);
+    color: #ffffff !important;
+  }
+  .interactive-row.mobile-hover-active .w-9 {
+    background-color: var(--color-royal) !important;
+    border-color: var(--color-royal) !important;
+  }
+  .interactive-row.mobile-hover-active .w-9 svg {
+    color: #ffffff !important;
+  }
+
+  /* Portfolio Cards on Mobile Scroll */
+  .mobile-hover-target.mobile-hover-active {
+    border-color: rgba(87, 144, 230, 0.45) !important;
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5) !important;
+  }
+  .mobile-hover-target.mobile-hover-active img {
+    transform: scale(1.06);
+  }
+  .mobile-hover-target.mobile-hover-active .opacity-30 {
+    opacity: 0.75 !important;
+  }
+  .mobile-hover-target.mobile-hover-active .opacity-0 {
+    opacity: 1 !important;
+  }
+  .mobile-hover-target.mobile-hover-active .scale-75 {
+    transform: scale(1) !important;
+  }
+  .mobile-hover-target.mobile-hover-active h3 {
+    color: var(--color-lightblue) !important;
+  }
+  .mobile-hover-target.mobile-hover-active .text-ghost\/60 {
+    border-color: var(--color-lightblue) !important;
+    color: var(--color-lightblue) !important;
+    background-color: rgba(87, 144, 230, 0.1) !important;
+  }
+
+  /* About Specialties & Review Cards on Mobile Scroll */
+  .mobile-card-target.mobile-hover-active {
+    border-color: rgba(37, 99, 201, 0.35) !important;
+    box-shadow: 0 10px 25px -5px rgba(15, 47, 99, 0.08) !important;
+  }
+
+  /* Academy Course Cards on Mobile Scroll */
+  .mobile-dark-card-target.mobile-hover-active {
+    border-color: rgba(87, 144, 230, 0.4) !important;
+    background-color: rgba(10, 29, 61, 0.98) !important;
+    box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Instagram Video Reels on Mobile Scroll */
+  .mobile-reel-target.mobile-hover-active video {
+    transform: scale(1.08);
+  }
+  .mobile-reel-target.mobile-hover-active .opacity-40 {
+    opacity: 0.8 !important;
+  }
+}
+
+

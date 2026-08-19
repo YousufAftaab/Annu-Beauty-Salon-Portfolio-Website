@@ -1,355 +1,469 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight, Eye, ChevronLeft, ChevronRight, ArrowDown, ArrowUp } from 'lucide-react';
 
-const categories = [
-  'Bridal Makeup',
-  'Soft Glam',
-  'Maternity Glam',
-  'Hairstyles',
-  'Nail Art',
+export type CategoryType =
+  | 'BRIDAL MAKEUP'
+  | 'SOFT GLAM'
+  | 'MATERNITY GLOW'
+  | 'HAIRSTYLES'
+  | 'NAIL ART';
+
+export interface WorkItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  categories: CategoryType[];
+  heightClass: string;
+}
+
+const workCategories: CategoryType[] = [
+  'BRIDAL MAKEUP',
+  'SOFT GLAM',
+  'MATERNITY GLOW',
+  'HAIRSTYLES',
+  'NAIL ART',
 ];
 
-const portfolioItems = [
+const allWorkItems: WorkItem[] = [
+  // 1. BRIDAL MAKEUP (8 Photos)
   {
-    id: 14,
-    category: 'Bridal Makeup',
-    label: 'Golden Hour Bridal',
+    id: 'bridal-1',
+    title: 'Golden Hour Bridal',
+    subtitle: 'High Definition South Indian Bride',
     image: '/images/bridal-gold-jewelry.jpg',
+    categories: ['BRIDAL MAKEUP'],
+    heightClass: 'h-[300px] sm:h-[320px]',
   },
   {
-    id: 13,
-    category: 'Bridal Makeup',
-    label: 'Royal Red Bridal',
+    id: 'bridal-2',
+    title: 'Royal Red Bridal',
+    subtitle: 'Airbrush Veil & Velvet Zari Setting',
     image: '/images/bridal-royal-red.jpg',
+    categories: ['BRIDAL MAKEUP'],
+    heightClass: 'h-[340px] sm:h-[360px]',
   },
   {
-    id: 11,
-    category: 'Bridal Makeup',
-    label: 'Traditional Bridal Elegance',
+    id: 'bridal-3',
+    title: 'Traditional Bridal Elegance',
+    subtitle: 'Macro Bridal Contouring & Pearl Nath',
     image: '/images/bridal-detail-new-1.jpg',
+    categories: ['BRIDAL MAKEUP'],
+    heightClass: 'h-[320px] sm:h-[340px]',
   },
   {
-    id: 12,
-    category: 'Bridal Makeup',
-    label: 'Royal Bridal Veil',
-    image: '/images/bridal-detail-new-2.jpg',
+    id: 'bridal-4',
+    title: 'Royal Bridal Veil',
+    subtitle: 'Intricate Henna & Embroidered Veil Framing',
+    image: '/images/bridal-hq-1.jpg',
+    categories: ['BRIDAL MAKEUP'],
+    heightClass: 'h-[330px] sm:h-[350px]',
   },
   {
-    id: 1,
-    category: 'Maternity Glam',
-    label: 'Traditional Reception Glam',
-    image: '/images/pregnancy-maternity-glam.jpg',
-  },
-  {
-    id: 2,
-    category: 'Bridal Makeup',
-    label: 'Bridal Prep Glow',
+    id: 'bridal-5',
+    title: 'Bridal Prep Glow',
+    subtitle: 'Airbrush Prep & Crystal Headpiece Setting',
     image: '/images/bridal-prep-glow.jpg',
+    categories: ['BRIDAL MAKEUP'],
+    heightClass: 'h-[310px] sm:h-[330px]',
   },
   {
-    id: 3,
-    category: 'Bridal Makeup',
-    label: 'South Indian Bridal',
+    id: 'bridal-6',
+    title: 'South Indian Bridal',
+    subtitle: 'Temple Jewellery & Classic Elegance',
     image: '/images/bridal-south-indian.jpg',
+    categories: ['BRIDAL MAKEUP'],
+    heightClass: 'h-[320px] sm:h-[340px]',
   },
   {
-    id: 4,
-    category: 'Soft Glam',
-    label: 'Elegant Event Look',
-    image: '/images/casual-event-look.jpg',
-  },
-  {
-    id: 10,
-    category: 'Soft Glam',
-    label: 'Pink Reception Glam',
-    image: '/images/soft-glam-pink.jpg',
-  },
-  {
-    id: 5,
-    category: 'Bridal Makeup',
-    label: 'Radiant South Indian',
+    id: 'bridal-7',
+    title: 'Radiant South Indian',
+    subtitle: 'Intricate Blouse Embroidery & Glass Bangles',
     image: '/images/bridal-south-indian-detail.jpg',
+    categories: ['BRIDAL MAKEUP'],
+    heightClass: 'h-[340px] sm:h-[360px]',
   },
   {
-    id: 6,
-    category: 'Bridal Makeup',
-    label: 'Spotlight Glam',
+    id: 'bridal-8',
+    title: 'Spotlight Glam',
+    subtitle: 'Lavender Zari Draping & Studio Drama',
     image: '/images/bridal-spotlight-glam.jpg',
+    categories: ['BRIDAL MAKEUP'],
+    heightClass: 'h-[320px] sm:h-[340px]',
+  },
+
+  // 2. SOFT GLAM (2 Photos)
+  {
+    id: 'soft-1',
+    title: 'Elegant Event Look',
+    subtitle: 'Natural Radiance for Special Occasions',
+    image: '/images/casual-event-look.jpg',
+    categories: ['SOFT GLAM'],
+    heightClass: 'h-[300px] sm:h-[320px]',
   },
   {
-    id: 7,
-    category: 'Nail Art',
-    label: 'Ruby Red Glam',
-    image: '/images/nail-art-red-glam.jpg',
+    id: 'soft-2',
+    title: 'Pink Reception Glam',
+    subtitle: 'Evening Glamour & Gloss Finish',
+    image: '/images/soft-glam-pink.jpg',
+    categories: ['SOFT GLAM'],
+    heightClass: 'h-[330px] sm:h-[350px]',
   },
+
+  // 3. MATERNITY GLOW (1 Photo)
   {
-    id: 8,
-    category: 'Nail Art',
-    label: 'Chocolate & Pink Ombre',
-    image: '/images/nail-art-pink-brown.jpg',
+    id: 'maternity-1',
+    title: 'Traditional Reception Glam',
+    subtitle: 'Radiant Glow & Saree Draping',
+    image: '/images/pregnancy-maternity-glam.jpg',
+    categories: ['MATERNITY GLOW'],
+    heightClass: 'h-[340px] sm:h-[360px]',
   },
+
+  // 4. HAIRSTYLES (6 Photos)
   {
-    id: 9,
-    category: 'Nail Art',
-    label: 'Pink Glitter Stardust',
-    image: '/images/nail-art-pink-glitter.jpg',
-  },
-  {
-    id: 16,
-    category: 'Hairstyles',
-    label: 'Intricate Beaded Braid',
-    image: '/images/hairstyle-2.jpg',
-  },
-  {
-    id: 18,
-    category: 'Hairstyles',
-    label: 'Butterfly Bloom Braid',
-    image: '/images/hairstyle-3.jpg',
-  },
-  {
-    id: 19,
-    category: 'Hairstyles',
-    label: 'Royal Jasmine Braid',
-    image: '/images/hairstyle-4.jpg',
-  },
-  {
-    id: 15,
-    category: 'Hairstyles',
-    label: 'Traditional Floral Braid',
+    id: 'hair-1',
+    title: 'Traditional Floral Braid',
+    subtitle: 'Dense Jasmine & Rose Garland Weave',
     image: '/images/hairstyle-1.jpg',
+    categories: ['HAIRSTYLES'],
+    heightClass: 'h-[340px] sm:h-[360px]',
   },
   {
-    id: 20,
-    category: 'Hairstyles',
-    label: 'Divine Temple Braid',
+    id: 'hair-2',
+    title: 'Intricate Beaded Braid',
+    subtitle: 'Pearl & Gold Metallic Threadwork',
+    image: '/images/hairstyle-2.jpg',
+    categories: ['HAIRSTYLES'],
+    heightClass: 'h-[300px] sm:h-[320px]',
+  },
+  {
+    id: 'hair-3',
+    title: 'Butterfly Bloom Braid',
+    subtitle: 'Cascading Botanical Floral Pins',
+    image: '/images/hairstyle-3.jpg',
+    categories: ['HAIRSTYLES'],
+    heightClass: 'h-[320px] sm:h-[340px]',
+  },
+  {
+    id: 'hair-4',
+    title: 'Royal Jasmine Braid',
+    subtitle: 'Symmetric Classic Floral Alignment',
+    image: '/images/hairstyle-4.jpg',
+    categories: ['HAIRSTYLES'],
+    heightClass: 'h-[310px] sm:h-[330px]',
+  },
+  {
+    id: 'hair-5',
+    title: 'Divine Temple Braid',
+    subtitle: 'Antique Billa Embedding',
     image: '/images/hairstyle-5.jpg',
+    categories: ['HAIRSTYLES'],
+    heightClass: 'h-[330px] sm:h-[350px]',
   },
   {
-    id: 21,
-    category: 'Hairstyles',
-    label: 'Jeweled Ribbon Braid',
+    id: 'hair-6',
+    title: 'Jeweled Ribbon Braid',
+    subtitle: 'Structured Volume & Ribbon Interweave',
     image: '/images/hairstyle-6.jpg',
+    categories: ['HAIRSTYLES'],
+    heightClass: 'h-[310px] sm:h-[330px]',
+  },
+
+  // 5. NAIL ART (4 Photos)
+  {
+    id: 'nails-1',
+    title: 'Ruby Red Royal Glam',
+    subtitle: 'Crystal Rhinestone Bridal Gel Set',
+    image: '/images/nail-art-red-glam.jpg',
+    categories: ['NAIL ART'],
+    heightClass: 'h-[290px] sm:h-[310px]',
   },
   {
-    id: 17,
-    category: 'Nail Art',
-    label: 'Pink & Gold Shimmer',
+    id: 'nails-2',
+    title: 'Chocolate & Soft Pink Ombré',
+    subtitle: 'Delicate Geometric Line Art',
+    image: '/images/nail-art-pink-brown.jpg',
+    categories: ['NAIL ART'],
+    heightClass: 'h-[290px] sm:h-[310px]',
+  },
+  {
+    id: 'nails-3',
+    title: 'Pink Glitter Stardust',
+    subtitle: 'Gold Foil Flakes & Micro-Diamond Coat',
+    image: '/images/nail-art-pink-glitter.jpg',
+    categories: ['NAIL ART'],
+    heightClass: 'h-[290px] sm:h-[310px]',
+  },
+  {
+    id: 'nails-4',
+    title: 'Blush & Champagne Shimmer',
+    subtitle: 'Almond Extension with Gold Dust Tips',
     image: '/images/nail-art-pink-gold.jpg',
+    categories: ['NAIL ART'],
+    heightClass: 'h-[290px] sm:h-[310px]',
   },
 ];
-
-
-
-// Sophisticated image reveal: "Taking out cards" (expand) and "Shuffle cards" (collapse)
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 60,
-    scale: 0.98,
-  },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: 'spring',
-      stiffness: 100,
-      damping: 20,
-      delay: i * 0.1,
-    },
-  }),
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    y: 20,
-    transition: {
-      duration: 0.3,
-      ease: 'easeInOut',
-    },
-  },
-};
-
-const overlayRevealVariants = {
-  hidden: { scaleX: 1 },
-  visible: {
-    scaleX: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.77, 0, 0.175, 1],
-      delay: 0.15,
-    },
-  },
-};
 
 export function Portfolio() {
-  const [activeCategory, setActiveCategory] = useState('Bridal Makeup');
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<CategoryType>('BRIDAL MAKEUP');
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
+  const isExpanded = !!expandedCategories[activeCategory];
+
+  const toggleExpand = () => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [activeCategory]: !prev[activeCategory],
+    }));
+  };
+
+  const filteredItems = allWorkItems.filter((item) =>
+    item.categories.includes(activeCategory)
+  );
+
+  const totalImages = filteredItems.length;
+  const remainingImages = totalImages - 3;
+  const hasMore = remainingImages > 0;
+
+  // Render first 3 if collapsed, or all if expanded
+  const displayedItems = isExpanded || !hasMore ? filteredItems : filteredItems.slice(0, 3);
+  const currentSelectedImage = selectedIndex !== null ? filteredItems[selectedIndex] : null;
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selectedIndex !== null) {
+      setSelectedIndex((prev) => ((prev! + 1) % filteredItems.length));
+    }
+  };
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selectedIndex !== null) {
+      setSelectedIndex((prev) => ((prev! - 1 + filteredItems.length) % filteredItems.length));
+    }
+  };
+
+  // Keyboard navigation for enlarged photo lightbox
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const filteredItems = portfolioItems.filter((item) => item.category === activeCategory);
-  
-  const initialLimit = isMobile ? 3 : 5;
-  const showLoadMore = filteredItems.length > initialLimit && !isExpanded;
-
-  const displayItems = showLoadMore 
-    ? filteredItems.slice(0, initialLimit) 
-    : filteredItems;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedIndex !== null) {
+        if (e.key === 'ArrowRight') handleNext();
+        if (e.key === 'ArrowLeft') handlePrev();
+        if (e.key === 'Escape') setSelectedIndex(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedIndex, filteredItems.length]);
 
   return (
-    <section id="work" className="py-24 bg-white">
-      <div className="container mx-auto px-6 md:px-12">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-serif mb-4 text-[#1a1a1a]">
-            Transformations
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Browse through some of my favorite recent works and client
-            transformations.
-          </p>
-        </div>
-
-        {/* Filters with micro-interactions */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-16">
-          {categories.map((category) => (
-            <motion.button
-              key={category}
-              onClick={() => {
-                setActiveCategory(category);
-                setIsExpanded(false); // Reset on category change
-              }}
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${
-                activeCategory === category
-                  ? 'bg-[#1a1a1a] text-white border-[#1a1a1a] shadow-lg shadow-black/10'
-                  : 'bg-white text-gray-600 border-[#EFE6DA] hover:border-[#E8B4B0] hover:text-[#E8B4B0]'
-              }`}
-            >
-              {category}
-            </motion.button>
-          ))}
-        </div>
-
-        {/* Grid with Sophisticated Image Reveals */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {displayItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                layout
-                custom={index}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-50px' }}
-                exit="exit"
-                className="group cursor-pointer"
-                onClick={() => setSelectedImage(item.image)}
-              >
-                <div className="aspect-[3/4] overflow-hidden rounded-xl relative mb-4 shadow-sm group-hover:shadow-2xl transition-all duration-500">
-                  <motion.div
-                    variants={overlayRevealVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: '-50px' }}
-                    className="absolute inset-0 bg-gradient-to-r from-[#FDFBF7] to-[#EFE6DA] z-20 origin-right"
-                  />
-                  <img
-                    src={item.image}
-                    alt={item.label}
-                    className={`w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 ${item.category === 'Hairstyles' ? 'object-top' : 'object-center'}`}
-                  />
-                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                </div>
-                <h4 className="font-serif text-xl font-bold text-[#111111] mb-1">
-                  {item.label}
-                </h4>
-                <p className="text-xs uppercase tracking-widest text-[#C9A961] font-medium">{item.category}</p>
-              </motion.div>
-            ))}
-
-            {/* The 6th card (or 4th on mobile) acting as Load More */}
-            {showLoadMore && (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                whileHover={{ y: -5 }}
-                className="aspect-[3/4] rounded-xl bg-white border border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:border-[#E8B4B0] hover:bg-[#FDFBF7] transition-all duration-500 shadow-sm hover:shadow-xl"
-                onClick={() => setIsExpanded(true)} // Show all
-              >
-                <div className="w-16 h-16 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center mb-6 group-hover:bg-[#E8B4B0] transition-colors duration-500 shadow-lg shadow-black/10">
-                  <ArrowRight className="w-8 h-8 transition-transform duration-500 group-hover:translate-x-1" />
-                </div>
-                <h4 className="font-serif text-2xl font-bold text-[#1a1a1a] mb-2">View More</h4>
-                <p className="text-sm text-gray-500 uppercase tracking-widest font-medium">
-                  {filteredItems.length - initialLimit} transformations
-                </p>
-                <div className="mt-4 w-8 h-1 bg-[#E8B4B0] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-              </motion.div>
-            )}
-            {/* The Load Less card, shown only when expanded */}
-            {isExpanded && (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="aspect-[3/4] rounded-2xl bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:bg-[#EFE6DA]/30 transition-colors duration-300"
-                onClick={() => {
-                  setIsExpanded(false);
-                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                <div className="w-16 h-16 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-black/5">
-                  <span className="text-2xl">−</span>
-                </div>
-                <h4 className="font-serif text-xl text-[#1a1a1a] mb-1">View Less</h4>
-                <p className="text-xs text-gray-500 uppercase tracking-widest">
-                  Collapse list
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+    <section
+      id="work"
+      className="relative w-full rounded-island bg-navy overflow-hidden p-6 sm:p-10 md:p-12 lg:p-16 text-white border border-lightblue/20 shadow-2xl"
+    >
+      {/* Container Header */}
+      <div className="relative z-10 max-w-4xl mb-7">
+        <h2 className="section-title-clamp font-black uppercase text-white tracking-tight mb-2">
+          THE WORK
+        </h2>
+        <p className="text-sm sm:text-base text-ghost/80 max-w-2xl font-normal leading-relaxed">
+          A curated look at the work created at Annu Beauty Salon.
+        </p>
       </div>
 
-      {/* Lightbox */}
+      {/* Category Filter Navigation */}
+      <div className="relative z-10 flex flex-wrap gap-2 sm:gap-2.5 mb-8 pb-4 border-b border-white/10">
+        {workCategories.map((cat) => {
+          const isActive = activeCategory === cat;
+          return (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`relative px-4 sm:px-5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 ${
+                isActive
+                  ? 'bg-white text-navy shadow-lg shadow-black/25 scale-105'
+                  : 'bg-white/5 text-ghost hover:text-white hover:bg-white/10 border border-white/10'
+              }`}
+            >
+              <span>{cat}</span>
+              {isActive && (
+                <motion.span
+                  layoutId="activeFilterPill"
+                  className="absolute inset-0 rounded-full border-2 border-white pointer-events-none"
+                  transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Dynamic In-Place Gallery Grid */}
+      <motion.div
+        layout
+        className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-start"
+      >
+        <AnimatePresence mode="popLayout">
+          {displayedItems.map((item, index) => (
+            <motion.div
+              layout
+              key={item.id}
+              initial={{ opacity: 0, scale: 0.96, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -10 }}
+              transition={{ duration: 0.35, delay: index * 0.02 }}
+              onClick={() => setSelectedIndex(index)}
+              className="group mobile-hover-target cursor-pointer rounded-2xl overflow-hidden bg-navy-deep/90 border border-white/10 hover:border-lightblue/40 hover:shadow-xl transition-all duration-400 flex flex-col justify-between"
+            >
+              {/* Compact Image Container */}
+              <div className={`${item.heightClass} overflow-hidden relative w-full`}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-transparent to-transparent opacity-30 group-hover:opacity-75 transition-opacity" />
+
+                {/* Hover Eye Action */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center scale-75 group-hover:scale-100 transition-transform">
+                    <Eye className="w-4 h-4" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Clean Small Caption */}
+              <div className="p-4 sm:p-4.5 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-tight text-white group-hover:text-lightblue transition-colors truncate">
+                    {item.title}
+                  </h3>
+                  <span className="text-xs text-ghost/70 block truncate mt-0.5 font-normal">
+                    {item.subtitle}
+                  </span>
+                </div>
+                <div className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center text-ghost/60 group-hover:border-lightblue group-hover:text-lightblue group-hover:bg-lightblue/10 transition-all flex-shrink-0">
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* In-Place "+{remainingImages} MORE" Trigger (Expands directly in the same section) */}
+      {!isExpanded && hasMore && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="relative z-10 mt-6 sm:mt-8 flex justify-center"
+        >
+          <button
+            onClick={toggleExpand}
+            className="group px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white text-navy font-black text-xs sm:text-sm uppercase tracking-wider hover:bg-lightblue hover:text-white transition-all duration-300 flex items-center gap-3 shadow-xl shadow-black/25 hover:scale-105"
+          >
+            <span className="w-6 h-6 rounded-full bg-navy text-white group-hover:bg-white group-hover:text-navy flex items-center justify-center text-xs font-bold transition-colors">
+              +{remainingImages}
+            </span>
+            <span>+{remainingImages} MORE</span>
+            <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+          </button>
+        </motion.div>
+      )}
+
+      {/* In-Place "SHOW LESS ↑" Trigger (Collapses back to 3 images) */}
+      {isExpanded && hasMore && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="relative z-10 mt-8 flex justify-center"
+        >
+          <button
+            onClick={toggleExpand}
+            className="px-7 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-2 backdrop-blur-md hover:scale-105"
+          >
+            <span>SHOW LESS</span>
+            <ArrowUp className="w-4 h-4" />
+          </button>
+        </motion.div>
+      )}
+
+      {/* Enlarged Photo Lightbox Modal (Only when clicking an individual photo) */}
       <AnimatePresence>
-        {selectedImage && (
+        {currentSelectedImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
-            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-black/95 p-4 sm:p-8"
+            onClick={() => setSelectedIndex(null)}
           >
+            {/* Top Close Button */}
             <button
-              className="absolute top-6 right-6 text-white hover:text-[#C9A961] transition-colors"
-              onClick={() => setSelectedImage(null)}
+              className="absolute top-6 right-6 z-30 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              onClick={() => setSelectedIndex(null)}
+              aria-label="Close image preview"
             >
-              <X size={32} />
+              <X className="w-6 h-6" />
             </button>
-            <motion.img
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              src={selectedImage}
-              alt="Enlarged portfolio piece"
-              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+
+            {/* Left Prev Arrow */}
+            {filteredItems.length > 1 && (
+              <button
+                className="absolute left-4 sm:left-8 z-30 p-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-md hover:scale-110"
+                onClick={handlePrev}
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+            )}
+
+            {/* Right Next Arrow */}
+            {filteredItems.length > 1 && (
+              <button
+                className="absolute right-4 sm:right-8 z-30 p-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-md hover:scale-110"
+                onClick={handleNext}
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            )}
+
+            {/* Central Media Card */}
+            <div
+              className="relative max-w-5xl max-h-[90vh] flex flex-col items-center justify-center"
               onClick={(e) => e.stopPropagation()}
-            />
+            >
+              <motion.img
+                key={currentSelectedImage.id}
+                initial={{ scale: 0.92, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.92, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                src={currentSelectedImage.image}
+                alt={currentSelectedImage.title}
+                className="max-w-full max-h-[78vh] object-contain rounded-2xl shadow-2xl border border-white/10"
+              />
+
+              {/* Caption Overlay */}
+              <div className="mt-4 text-center">
+                <div className="text-xs text-lightblue font-semibold uppercase tracking-wider mb-1">
+                  {activeCategory} • {selectedIndex! + 1} of {filteredItems.length}
+                </div>
+                <h3 className="text-base sm:text-xl font-bold uppercase tracking-tight text-white">
+                  {currentSelectedImage.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-ghost/70 font-normal">
+                  {currentSelectedImage.subtitle}
+                </p>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

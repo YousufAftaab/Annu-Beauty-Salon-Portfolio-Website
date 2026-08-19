@@ -1,4 +1,5 @@
-import { Instagram } from 'lucide-react';
+import { Instagram, ArrowRight, Play } from 'lucide-react';
+
 const igPosts = [
   {
     type: 'video',
@@ -28,67 +29,62 @@ const igPosts = [
 
 export function InstagramGrid() {
   return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-6 md:px-12">
-        <a 
-          href="https://instagram.com/salon_annu" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex flex-col items-center mb-12 hover:opacity-80 transition-opacity"
-        >
-          <Instagram size={32} className="text-[#C9A961] mb-4" />
-          <h2 className="text-3xl font-serif text-[#1a1a1a]">
-            @annubeautysalon
+    <section
+      id="reels"
+      className="relative w-full rounded-island bg-white overflow-hidden p-6 sm:p-10 md:p-14 lg:p-20 border border-hairline shadow-sm"
+    >
+      {/* Section Header with Instagram Profile CTA */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="max-w-3xl">
+          <h2 className="section-title-clamp font-black uppercase text-navy tracking-tight">
+            CAPTURED IN MOTION.
           </h2>
-          <p className="text-gray-500 mt-2">
-            Follow for daily inspiration and behind the scenes
+          <p className="text-sm sm:text-base text-muted mt-3 font-normal leading-relaxed">
+            Watch live bridal reveals, saree draping precision, and behind-the-scenes artistry from our Mancherial studio.
           </p>
+        </div>
+
+        <a
+          href="https://instagram.com/salon_annu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-navy hover:bg-royal text-white font-semibold text-xs uppercase tracking-wide transition-all duration-300 shadow-md flex-shrink-0 hover:scale-105"
+        >
+          <Instagram className="w-4 h-4" />
+          <span>Follow @salon_annu</span>
+          <ArrowRight className="w-3.5 h-3.5" />
         </a>
+      </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
-          {igPosts.map((post, idx) => (
-            <div
-              key={idx}
-              className="group relative aspect-square overflow-hidden rounded-xl block bg-gray-100 shadow-sm"
-            >
-              {post.type === 'video' ? (
-                <video
-                  src={post.url}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[1.02]"
-                />
-              ) : post.type === 'link' ? (
-                <a
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full h-full flex flex-col items-center justify-center bg-[#FDFBF7] border-2 border-dashed border-[#EFE6DA] group-hover:bg-[#EFE6DA]/50 transition-colors duration-300"
-                >
-                  <Instagram size={32} className="text-[#C9A961] mb-2" />
-                  <span className="text-[10px] uppercase tracking-widest text-gray-500 font-medium">
-                    Follow Us
-                  </span>
-                </a>
-              ) : (
-                <img
-                  src={post.url}
-                  alt="Instagram post"
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[1.02]"
-                />
-              )}
+      {/* 6-Video Reels Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        {igPosts.map((post, idx) => (
+          <div
+            key={idx}
+            className="group mobile-reel-target relative aspect-[9/16] overflow-hidden rounded-2xl block bg-navy-dark shadow-sm border border-hairline"
+          >
+            <video
+              src={post.url}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108 brightness-[1.02]"
+            />
+            {/* Dark gradient for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 group-hover:opacity-80 transition-opacity" />
 
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <Instagram className="text-white" size={24} />
+            {/* Play Indicator */}
+            <div className="absolute bottom-3 right-3">
+              <div className="w-7 h-7 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white/80">
+                <Play className="w-3.5 h-3.5 fill-white/80" />
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
+
